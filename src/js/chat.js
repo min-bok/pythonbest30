@@ -67,7 +67,7 @@ const handleOpenChat = () => {
 };
 
 $chatBtn.addEventListener("click", () => {
-  handleOpenChat()
+  handleOpenChat();
 });
 
 // 채팅 창 닫기 버튼 이벤트
@@ -88,11 +88,14 @@ $chatCloseBtn.addEventListener("click", () => {
 function convertMarkdown(message) {
   const codeBlockRegex = /(```(\w+)[ \t]*\r?\n)([\s\S]*?)(\r?\n[ \t]*```)/g;
 
-  const wrappedCode = message.replace(codeBlockRegex, (match, start, language, code, end) => {
-    const escapedCode = code.replace(/</g, '&lt;').replace(/>/g, '&gt;');
-    const langClass = `language-${language}`;
-    return `<pre class="codeblock" style="background: #F5F2F0;"><code class="${langClass}" >${escapedCode.trim()}</code></pre>`;
-  });
+  const wrappedCode = message.replace(
+    codeBlockRegex,
+    (match, start, language, code, end) => {
+      const escapedCode = code.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+      const langClass = `language-${language}`;
+      return `<pre class="codeblock" style="background: #F5F2F0;"><code class="${langClass}" >${escapedCode.trim()}</code></pre>`;
+    }
+  );
 
   return wrappedCode;
 }
@@ -120,23 +123,23 @@ const sendQuestion = (question) => {
 };
 
 // 화면에 질문 그려주는 함수
-const printQuestion = async() => {
-  if(question) {
+const printQuestion = async () => {
+  if (question) {
     let li = document.createElement("li");
-    let pre = document.createElement("pre")
+    let pre = document.createElement("pre");
     li.classList.add("user");
-    pre.classList.add("chat-pre")
+    pre.classList.add("chat-pre");
     questionData.map((el) => {
       pre.innerHTML = convertMarkdown(el.content);
     });
-    li.appendChild(pre)
+    li.appendChild(pre);
     $chatList.appendChild(li);
     questionData = [];
     question = false;
   }
 
-  Prism.highlightAll()
-}
+  Prism.highlightAll();
+};
 
 // 채팅 UI 삭제해주는 함수
 $btnQue.forEach((element) => {
@@ -160,19 +163,18 @@ const focusOnTextarea = () => {
 };
 
 // API 통신 관련 함수
-const apiPost = async(config) => {
+const apiPost = async (config) => {
   let result = await axios(config)
-      .then((res) => {
-          const answer = res.data.choices[0].message.content;
-          printAnswer(answer);
-          Prism.highlightAll()
-      })
-      .catch((err) => {
-        alert("답변 로딩시간을 초과하였습니다. 새로운 질문을 입력해주세요😢");
-        console.log(err)
-      })
+    .then((res) => {
+      const answer = res.data.choices[0].message.content;
+      printAnswer(answer);
+      Prism.highlightAll();
+    })
+    .catch((err) => {
+      alert("답변 로딩시간을 초과하였습니다. 새로운 질문을 입력해주세요😢");
+      console.log(err);
+    });
 };
-
 
 // req 보내주는 함수
 const sendReq = (test) => {
