@@ -39,11 +39,11 @@ $btnChatOpen.addEventListener("click", async (e) => {
         {
           role: "system",
           content:
-            "assistant는 친절한 자바스크립트 알고리즘의 힌트를 주는 선생님이다.",
+            "assistant는 친절한 파이썬 알고리즘의 힌트를 주는 선생님이다.",
         },
         {
           role: "user",
-          content: "다음은 풀고자 하는 자바스크립트 알고리즘 문제 입니다.",
+          content: "다음은 풀고자 하는 파이썬 알고리즘 문제 입니다.",
         },
         {
           role: "user",
